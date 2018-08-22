@@ -1,18 +1,19 @@
-- name: Create Azure VM
+ name: Create Azure VM
   hosts: localhost
   connection: local
   tasks:
   - name: Create VM
     azure_rm_virtualmachine:
-      resource_group: ansibleRG
+      resource_group: 
       name: labVM
       vm_size: Standard_B1ms
-      admin_username: labvmadmin
+      admin_username: azureuser
       ssh_password_enabled: false
       ssh_public_keys:
+        - path: /home/azureuser/.ssh/authorized_keys
           key_data: ""
       image:
         offer: UbuntuServer
         publisher: Canonical
-        sku: '6.04.0-LTS'
+        sku: '16.04.0-LTS'
         version: latest
