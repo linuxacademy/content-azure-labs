@@ -51,7 +51,7 @@ resource "azurerm_network_interface" "lab_nic" {
     name = "labNIC"
     location = "${local.location}"
     resource_group_name = "${local.resource_group_name}"
-    network_security_group_id = "${local.azurerm_network_security_group.myterraformnsg.id}"
+    network_security_group_id = "${azurerm_network_security_group.lab_nsg.id}"
     ip_configuration {
         name = "labNicConfiguration"
         subnet_id = "${azurerm_subnet.lab_subnet.id}"
@@ -65,7 +65,7 @@ resource "azurerm_virtual_machine" "lab_vm" {
     name = "labVM"
     location = "${local.location}"
     resource_group_name = "${local.resource_group_name}"
-    network_interface_ids = ["${local.azurerm_network_interface.lab_nic.id}"]
+    network_interface_ids = ["${azurerm_network_interface.lab_nic.id}"]
     vm_size = "Standard_B1ms"
     storage_os_disk {
         name = "labVMOSDISK"
@@ -89,8 +89,5 @@ resource "azurerm_virtual_machine" "lab_vm" {
             path = "/home/labvmadmin/.ssh/authorized_keys"
             key_data = "${local.public_key}"
         }
-    }
-    boot_diagnostics {
-        enabled = "false"
     }
 }
