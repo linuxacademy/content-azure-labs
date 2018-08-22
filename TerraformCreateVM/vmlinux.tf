@@ -24,7 +24,7 @@ resource "azurerm_subnet" "lab_subnet" {
 resource "azurerm_public_ip" "lab_pip" {
     name = "labPIP"
     location = "${local.location}"
-    resource_group_name = "${local.azurerm_resource_group.myterraformgroup.name}"
+    resource_group_name = "${local.resource_group_name}"
     public_ip_address_allocation = "dynamic"
 }
 
@@ -32,7 +32,7 @@ resource "azurerm_public_ip" "lab_pip" {
 resource "azurerm_network_security_group" "lab_nsg" {
     name = "labNSG"
     location = "${local.location}"
-    resource_group_name = "${local.azurerm_resource_group.myterraformgroup.name}"
+    resource_group_name = "${local.resource_group_name}"
     security_rule {
         name = "SSH"
         priority = 1001
@@ -50,7 +50,7 @@ resource "azurerm_network_security_group" "lab_nsg" {
 resource "azurerm_network_interface" "lab_nic" {
     name = "labNIC"
     location = "${local.location}"
-    resource_group_name = "${local.azurerm_resource_group.myterraformgroup.name}"
+    resource_group_name = "${local.resource_group_name}"
     network_security_group_id = "${local.azurerm_network_security_group.myterraformnsg.id}"
     ip_configuration {
         name = "labNicConfiguration"
@@ -64,7 +64,7 @@ resource "azurerm_network_interface" "lab_nic" {
 resource "azurerm_virtual_machine" "lab_vm" {
     name = "labVM"
     location = "${local.location}"
-    resource_group_name = "${local.azurerm_resource_group.myterraformgroup.name}"
+    resource_group_name = "${local.resource_group_name}"
     network_interface_ids = ["${local.azurerm_network_interface.lab_nic.id}"]
     vm_size = "Standard_B1ms"
     storage_os_disk {
