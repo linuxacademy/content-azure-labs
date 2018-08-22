@@ -1,0 +1,18 @@
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: ansibleRG
+      name: labVM
+      vm_size: Standard_B1ms
+      admin_username: labvmadmin
+      ssh_password_enabled: false
+      ssh_public_keys:
+          key_data: ""
+      image:
+        offer: UbuntuServer
+        publisher: Canonical
+        sku: '6.04.0-LTS'
+        version: latest
