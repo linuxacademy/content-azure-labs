@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "labSSHKeyData": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHT83TtJytY5tznaF8AsQAwFzN5nY5HVGxtlmBR083FEf+1g3rVENCvsV0i+3dVHExw+IbaMExCbqCSjcnM3PfCG23id5HRw7L2kROXXbEjcZe8LzEj7DPZ4ZWnQ1iVHenlO0YqBtPEb5BNhhmFHyylGewKt2Q7wkUZWTZfiCYT+a2Is5z4KjA2xxXs/A4pox8yrjmJb787T5RrLz422RsdUqVXHPhvwo8DrlC0mBEPax0Z1Ou8yKR/upW1uq1yJwadEox0aNtOm1zOyrhNaA1QzAMXeFrq2x91yJOFfD6LoKS7/oHEc9uslVBpTgNbN9J/PvQXhCIRntOsLngsPnF"
+        },
+        "labVmName": {
+            "value": "lab-VM"
+        },
+        "labNicName": {
+            "value": "lab-NIC"
+        },
+        "labPipName": {
+            "value": "lab-PIP"
+        },
+        "labNsgName": {
+            "value": "lab-NSG"
+        },
+        "labVnetName": {
+            "value": "lab-VNET"
+        },
+        "labSubnetName": {
+            "value": "default"
+        }
+    }
+}
