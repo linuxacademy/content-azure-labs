@@ -1,7 +1,13 @@
 locals {
-  resource_group_name = ""
-  public_key = ""
-  location = "southcentralus"
+    resource_group_name = ""
+    public_key = ""
+    location = "southcentralus"
+}
+
+# Configure the Azure Provider
+provider "azurerm" {
+    version = "=1.28.0"
+    skip_provider_registration = true
 }
 
 # Create virtual network
@@ -25,7 +31,7 @@ resource "azurerm_public_ip" "lab_pip" {
     name = "labPIP"
     location = "${local.location}"
     resource_group_name = "${local.resource_group_name}"
-    public_ip_address_allocation = "dynamic"
+    allocation_method = "Dynamic"
 }
 
 # Create Network Security Group and rule
@@ -91,3 +97,4 @@ resource "azurerm_virtual_machine" "lab_vm" {
         }
     }
 }
+
