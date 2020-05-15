@@ -10,6 +10,12 @@ provider "azurerm" {
     features {}
 }
 
+# Configure Azure Provider
+provider "azurerm" {
+    version = "=2.0.0"
+    features {}
+}
+
 # Create virtual network
 resource "azurerm_virtual_network" "lab_vnet" {
     name = "labVNET"
