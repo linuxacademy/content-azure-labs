@@ -73,6 +73,7 @@ resource "azurerm_network_interface" "lab_nic" {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.lab_subnet.id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id = azurerm_public_ip.lab_pip.id
   }
 }
 
