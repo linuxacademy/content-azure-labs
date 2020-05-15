@@ -4,18 +4,24 @@ locals {
   location = "southcentralus"
 }
 
+# Configure Azure Provider
+provider "azurerm" {
+    version = "=2.0.0"
+    features {}
+}
+
 # Create virtual network
 resource "azurerm_virtual_network" "lab_vnet" {
     name = "labVNET"
     address_space = ["10.0.0.0/16"]
-    location = "${local.location}"
-    resource_group_name = "${local.resource_group_name}"
+    location = "local.location"
+    resource_group_name = "local.resource_group_name"
 }
 
 # Create subnet
 resource "azurerm_subnet" "lab_subnet" {
     name = "labSUBNET"
-    resource_group_name = "${local.resource_group_name}"
+    resource_group_name = "local.resource_group_name"
     virtual_network_name = "${azurerm_virtual_network.lab_vnet.name}"
     address_prefix = "10.0.1.0/24"
 }
@@ -23,16 +29,16 @@ resource "azurerm_subnet" "lab_subnet" {
 # Create public IPs
 resource "azurerm_public_ip" "lab_pip" {
     name = "labPIP"
-    location = "${local.location}"
-    resource_group_name = "${local.resource_group_name}"
-    public_ip_address_allocation = "dynamic"
+    location = "local.location"
+    resource_group_name = "local.resource_group_name"
+    allocation_method = "Dynamic"
 }
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "lab_nsg" {
     name = "labNSG"
-    location = "${local.location}"
-    resource_group_name = "${local.resource_group_name}"
+    location = "local.location"
+    resource_group_name = "local.resource_group_name"
     security_rule {
         name = "SSH"
         priority = 1001
@@ -49,9 +55,9 @@ resource "azurerm_network_security_group" "lab_nsg" {
 # Create network interface
 resource "azurerm_network_interface" "lab_nic" {
     name = "labNIC"
-    location = "${local.location}"
-    resource_group_name = "${local.resource_group_name}"
-    network_security_group_id = "${azurerm_network_security_group.lab_nsg.id}"
+    location = "local.location"
+    resource_group_name = "local.resource_group_name"
+    
     ip_configuration {
         name = "labNicConfiguration"
         subnet_id = "${azurerm_subnet.lab_subnet.id}"
@@ -63,8 +69,8 @@ resource "azurerm_network_interface" "lab_nic" {
 # Create virtual machine
 resource "azurerm_virtual_machine" "lab_vm" {
     name = "labVM"
-    location = "${local.location}"
-    resource_group_name = "${local.resource_group_name}"
+    location = "local.location"
+    resource_group_name = "local.resource_group_name"
     network_interface_ids = ["${azurerm_network_interface.lab_nic.id}"]
     vm_size = "Standard_B1ms"
     storage_os_disk {
@@ -87,7 +93,7 @@ resource "azurerm_virtual_machine" "lab_vm" {
         disable_password_authentication = true
         ssh_keys {
             path = "/home/labvmadmin/.ssh/authorized_keys"
-            key_data = "${local.public_key}"
+            key_data = "local.public_key"
         }
     }
 }
